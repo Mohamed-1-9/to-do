@@ -145,10 +145,12 @@
         const todoItem = todo[index];
         todo[index] = `<a>${todoItem}</a>`;
         display();
+        localStorage.setItem('todo', JSON.stringify(todo));
     }
     function deleteTodo(index) {
         todo.splice(index, 1);
         display();
+        localStorage.setItem('todo', JSON.stringify(todo));
     }
 
         
