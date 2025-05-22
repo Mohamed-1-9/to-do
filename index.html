@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            background-color: white;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            font-size: large;
+        }
+
+        li:hover {
+            background-color: #f1f1f1;
+        }
+        .content {
+            margin-right: 10px;
+        }
+        .done {
+            color: green;
+            cursor: pointer;
+        }
+        .delete {
+            color: red;
+            cursor: pointer;
+        }
+        .done, .delete {
+            margin-left: 10px;
+        }
+        .delete:hover {
+            color: #dc3545;
+        }
+        .done:hover {
+            color: #28a745;
+        }
+        a{
+            color: #999;
+            text-decoration: line-through;
+            width: 100%;
+            
+            font-weight: bold;
+            font-size: large;
+
+            
+            background-color: #f4f4f4;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            
+        }
+    </style>
+</head>
+<body>
+    <h1>To do List ✌💪</h1>
+    <form id="todo-form">
+        <input type="text" id="todo-input" placeholder="Enter a new task" required>
+        <button type="submit">Add</button>
+    </form>
+    <ul id="todo-list"></ul>
+
+
+    <script>
+        const form = document.getElementById('todo-form');
+        const input = document.getElementById('todo-input');
+        const todoList = document.getElementById('todo-list');
+        const done = document.querySelector('.done');
+        const deleteBtn = document.querySelector('.delete');
+        todo = []
+        function addTodo() {
+            const newTodo = input.value.trim();
+            if (newTodo) {
+                todo.push(newTodo);
+                localStorage.setItem('todo', JSON.stringify(todo));
+                
+                input.value = '';
+                display();
+            }
+        }
+        window.onload = function() {
+            loadTodos();
+        }
+        function loadTodos() {
+            todo = gettodo();
+            display();
+        }
+        function gettodo() {
+            const storedTodos = localStorage.getItem('todo');
+            return storedTodos ? JSON.parse(storedTodos) : [];
+            display();
+        }
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            addTodo();
+        });
+
+    function display(){
+        let container = "";
+        for (let i = 0; i < todo.length; i++) {
+            container += `<li><span class="content">${todo[i]}</span> <div><span onclick="doneTodo(${i})" class="done">✔</span>  <span onclick="deleteTodo(${i})" class="delete">✖</span></div></li>`;
+        }
+        todoList.innerHTML = container;
+    }
+    function doneTodo(index) {
+        const todoItem = todo[index];
+        todo[index] = `<a>${todoItem}</a>`;
+        display();
+    }
+    function deleteTodo(index) {
+        todo.splice(index, 1);
+        display();
+    }
+
+        
+    </script>
+</body>
+</html>
