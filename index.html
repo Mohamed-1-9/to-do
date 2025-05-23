@@ -10,7 +10,10 @@
             background-color: #f4f4f4;
             margin: 0;
             padding: 20px;
+            height: 100vh;
+            position: relative;
         }
+
         h1 {
             text-align: center;
         }
@@ -28,14 +31,17 @@
         button {
             padding: 10px 15px;
             
-            background-color: #007bff;
+            
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             margin-left: 10px;
         }
-        button:active , button:hover {
+        .submit{
+            background-color: #007bff;
+        }
+        .submit:active ,.submit:hover {
             background-color: #0056b3;
         }
         ul {
@@ -76,6 +82,7 @@
             color: #28a745;
         }
         a{
+
             color: #999;
             text-decoration: line-through;
             width: 100%;
@@ -88,15 +95,27 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             
         }
+        .deleteAll{
+            background-color: red;
+            position: absolute;
+            bottom: 10%;
+            left: 15%;
+
+        }
+        .deleteAll:hover,.deleteAll:active{
+            background-color: #d30015;
+        }
     </style>
 </head>
 <body>
     <h1>To do List ✌💪</h1>
     <form id="todo-form">
         <input type="text" id="todo-input" placeholder="Enter a new task" required>
-        <button type="submit">Add</button>
+        <button class="submit" type="submit">Add</button>
     </form>
     <ul id="todo-list"></ul>
+    <button class="deleteAll">Delete all Tasks</button>
+
 
 
     <script>
@@ -105,7 +124,15 @@
         const todoList = document.getElementById('todo-list');
         const done = document.querySelector('.done');
         const deleteBtn = document.querySelector('.delete');
-        todo = []
+        const deleteAll = document.querySelector('.deleteAll')
+        var todo = []
+        deleteAll.addEventListener("click",()=>{
+            if(todo){
+                todo = []
+                localStorage.setItem('todo', JSON.stringify(todo));
+                display()
+            }
+        })
         function addTodo() {
             const newTodo = input.value.trim();
             if (newTodo) {
