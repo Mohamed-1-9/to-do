@@ -97,14 +97,24 @@
         }
         .deleteAll{
             background-color: red;
-            position: absolute;
-            bottom: 10%;
-            left: 15%;
 
         }
         .deleteAll:hover,.deleteAll:active{
             background-color: #d30015;
         }
+        .Restore{
+            background-color: green;
+            
+        }
+        .Restore:hover,.Restore:active{
+            background-color: rgb(3, 112, 3);
+        }
+        .ay7aga{
+            position: absolute;
+            bottom: 10%;
+            left: 5%;
+        }
+        .d-none{display: none;}
     </style>
 </head>
 <body>
@@ -114,7 +124,10 @@
         <button class="submit" type="submit">Add</button>
     </form>
     <ul id="todo-list"></ul>
-    <button class="deleteAll">Delete all Tasks</button>
+    <div class="ay7aga">
+        <button class="deleteAll">Delete all Tasks 🚀</button>
+        <button class="Restore d-none">Restore Tasks ⚡</button>
+    </div>
 
 
 
@@ -125,14 +138,24 @@
         const done = document.querySelector('.done');
         const deleteBtn = document.querySelector('.delete');
         const deleteAll = document.querySelector('.deleteAll')
+        const restore = document.querySelector('.Restore')
         var todo = []
-
+        var todores =[]
+        restore.addEventListener("click",()=>{
+            todo = todores
+            display()
+            restore.classList.add("d-none")
+        })
         deleteAll.addEventListener("click",()=>{
             if(todo.length >= 1){
                 var confirm =window.confirm("Are you sure ???")
-                if(confirm) {todo = []
+
+                if(confirm) {
+                
+                todo = []
                 localStorage.setItem('todo', JSON.stringify(todo));
                 display()}
+                restore.classList.remove("d-none")
             }
         })
         function addTodo() {
@@ -140,6 +163,8 @@
             if (newTodo) {
                 todo.push(newTodo);
                 localStorage.setItem('todo', JSON.stringify(todo));
+                todores = todo 
+                localStorage.setItem('todores', JSON.stringify(todores));
                 
                 input.value = '';
                 display();
@@ -175,11 +200,15 @@
         todo[index] = `<a>${todoItem}</a>`;
         display();
         localStorage.setItem('todo', JSON.stringify(todo));
+        
+
     }
     function deleteTodo(index) {
         todo.splice(index, 1);
         display();
         localStorage.setItem('todo', JSON.stringify(todo));
+        
+        
     }
 
         
