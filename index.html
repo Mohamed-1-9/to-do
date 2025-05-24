@@ -126,11 +126,13 @@
         const deleteBtn = document.querySelector('.delete');
         const deleteAll = document.querySelector('.deleteAll')
         var todo = []
+
         deleteAll.addEventListener("click",()=>{
-            if(todo){
-                todo = []
+            if(todo.length >= 1){
+                var confirm =window.confirm("Are you sure ???")
+                if(confirm) {todo = []
                 localStorage.setItem('todo', JSON.stringify(todo));
-                display()
+                display()}
             }
         })
         function addTodo() {
