@@ -146,6 +146,7 @@
             todo = todores
             display()
             restore.classList.add("d-none")
+            
         })
         deleteAll.addEventListener("click",()=>{
             if(todo.length >= 1){
@@ -157,6 +158,7 @@
                 localStorage.setItem('todo', JSON.stringify(todo));
                 display()}
                 restore.classList.remove("d-none")
+
             }
         })
         function addTodo() {
@@ -169,6 +171,8 @@
                 
                 input.value = '';
                 display();
+                
+                restore.classList.add("d-none")
             }
         }
         window.onload = function() {
